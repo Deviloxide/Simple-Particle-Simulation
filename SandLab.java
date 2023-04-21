@@ -78,7 +78,9 @@ public class SandLab
 
   private void waterBehavior(int row, int col) {
     // if space below is empty, move there
+    int direction = 0;
     if (row + 1 < grid.length && grid[row + 1][col] == EMPTY) {
+      direction = 1;
       grid[row + 1][col] = WATER;
       grid[row][col] = EMPTY;
     }
@@ -86,9 +88,11 @@ public class SandLab
     else if (row + 1 < grid.length && grid[row + 1][col] != EMPTY) {
       int random = (int)(Math.random() * 2);
       if (random == 0 && col - 1 >= 0 && grid[row][col - 1] == EMPTY) {
+        direction = 2;
         grid[row][col - 1] = WATER;
         grid[row][col] = EMPTY;
       } else if (random == 1 && col + 1 < grid[0].length && grid[row][col + 1] == EMPTY) {
+        direction = 3;
         grid[row][col + 1] = WATER;
         grid[row][col] = EMPTY;
       }
@@ -97,7 +101,15 @@ public class SandLab
     // water has a random chance of turning into air
     int random2 = (int)(Math.random() * 10000);
     if (random2 == 0) {
-      grid[row][col] = AIR;
+      if (direction == 0) {
+        grid[row][col] = AIR;
+      } else if (direction == 1) {
+        grid[row + 1][col] = AIR;
+      } else if (direction == 2) {
+        grid[row][col - 1] = AIR;
+      } else if (direction == 3) {
+        grid[row][col + 1] = AIR;
+      }
     }
   }
 
@@ -163,27 +175,42 @@ public class SandLab
 
     private void airBehavior(int row, int col) {
         // air should move in a random direction
+        int direction = 0;
         int random = (int)(Math.random() * 6);
         if (random < 3 && row - 1 >= 0) {
+          direction = 1;
             int temp = grid[row - 1][col];
             grid[row - 1][col] = AIR;
             grid[row][col] = temp;
         } else if (random == 3 && row + 1 < grid.length && grid[row + 1][col] == EMPTY) {
-            grid[row + 1][col] = AIR;
+            direction = 2;
+          grid[row + 1][col] = AIR;
             grid[row][col] = EMPTY;
         } else if (random == 4 && col - 1 >= 0 && grid[row][col - 1] == EMPTY) {
-            grid[row][col - 1] = AIR;
+            direction = 3;
+          grid[row][col - 1] = AIR;
             grid[row][col] = EMPTY;
         } else if (random == 5 && col + 1 < grid[0].length && grid[row][col + 1] == EMPTY) {
-            grid[row][col + 1] = AIR;
+          direction = 4;
+          grid[row][col + 1] = AIR;
             grid[row][col] = EMPTY;
         }
 
         // air has a random chance of turning into water
-        int random2 = (int)(Math.random() * 10000);
-        if (random2 == 0) {
-            grid[row][col] = WATER;
+      int random2 = (int)(Math.random() * 10000);
+      if (random2 == 0) {
+        if (direction == 0) {
+          grid[row][col] = WATER;
+        } else if (direction == 1) {
+          grid[row - 1][col] = WATER;
+        } else if (direction == 2) {
+          grid[row + 1][col] = WATER;
+        } else if (direction == 3) {
+          grid[row][col - 1] = WATER;
+        } else if (direction == 4) {
+          grid[row][col + 1] = WATER;
         }
+      }
     }
   
   //do not modify
