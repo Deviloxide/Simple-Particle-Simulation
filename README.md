@@ -9,4 +9,4 @@ There are only four simple elements.
 4. Air
 
 ## Description
-While the number of elements is very limited, each one shows unique behaviors and interacts with the other elements. The 2d-array of integers method of keeping track of elements has several limitation, with a lack of individual states for certain particles being the most evident.
+While the number of elements is very limited, each one shows unique behaviors and interacts with the other elements. The 2d-array of integers method of keeping track of elements has several limitations, with a lack of individual states for certain particles being the most evident.
